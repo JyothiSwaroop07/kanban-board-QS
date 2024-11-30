@@ -166,7 +166,7 @@ const KanbanBoard = ({ tickets, users }) => {
       {/* Render grouped and ordered tickets in columns */}
       <div className="kanban-board">
         {Object.keys(processedTickets).map((key) => (
-          <KanbanColumn key={key} title={key} tickets={processedTickets[key]} grouping={grouping} ordering={ordering} />
+          <KanbanColumn key={key} title={key} tickets={processedTickets[key]} users={users} grouping={grouping} ordering={ordering} />
         ))}
       </div>
     </div>

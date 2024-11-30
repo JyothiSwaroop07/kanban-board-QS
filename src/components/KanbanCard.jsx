@@ -10,11 +10,12 @@ import done from '../assets/Done.svg';
 import backlog from '../assets/Backlog.svg';
 import todo from '../assets/To-do.svg';
 import cancelled from '../assets/Cancelled.svg'
-// Dummy avatar URL
-const getAvatarUrl = (userId) => `https://www.example.com/avatars/${userId}.png`;
 
-const KanbanCard = ({ ticket, grouping, ordering }) => {
-  console.log(ticket.priority)
+import UserAvatar from './UserAvatar'
+
+
+const KanbanCard = ({ ticket, users, grouping, ordering }) => {
+  const user = users.find((user) => user.id === ticket.userId);
   return (
     <div className="kanban-card" >
 
@@ -25,14 +26,9 @@ const KanbanCard = ({ ticket, grouping, ordering }) => {
         <h4>{grouping!=="status" && <img src={getStatusIcon(ticket.status)} alt="status"/>}  {ticket.title}</h4>
       </div>
 
-      <div className="assigned-user">
-        <img
-          src={getAvatarUrl(ticket.userId)}
-          alt={`${ticket.userId}`}
-          className="avatar"
-
-        />
-      </div>
+      {grouping !== "user" && <div className="assigned-user">
+          <UserAvatar name={user?.name || "Unassigned"} isAvailable={user?.available || false}/>
+      </div>}
 
       </div>
 

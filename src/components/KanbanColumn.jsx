@@ -14,11 +14,17 @@ import cancelled from '../assets/Cancelled.svg';
 import plus from '../assets/add.svg';
 import threedot from '../assets/3 dot menu.svg';
 
-const KanbanColumn = ({ title, tickets, grouping, ordering }) => {
+import UserAvatar from "./UserAvatar";
+
+const KanbanColumn = ({ title, tickets,users, grouping, ordering }) => {
   return (
     <div className="kanban-column">
       <div style={{display: "flex", justifyContent: "space-between", paddingRight: "18px"}}>
-      <h3 style={{textAlign: "left", fontWeight: "600"}}><img src={getIcon(grouping, ordering, title)} alt="icon" /> {title}
+      <h3 style={{textAlign: "left", fontWeight: "600", display:"flex", alignItems:"center", gap:"3px"}}>
+        {grouping !== "user" ? <img src={getIcon(grouping, ordering, title)} alt="icon" /> : <div className="assigned-user">
+          <UserAvatar name={title || "Unassigned"} isAvailable={"empty"}/>
+      </div>}
+        {title}
         <span style={{color: "gray", fontSize: "13px", marginLeft: "5px"}}>{tickets.length}</span>
       </h3>
 
@@ -29,7 +35,7 @@ const KanbanColumn = ({ title, tickets, grouping, ordering }) => {
       </div>
 
       {tickets.map((ticket) => (
-        <KanbanCard key={ticket.id} ticket={ticket} grouping={grouping} ordering={ordering} />
+        <KanbanCard key={ticket.id} ticket={ticket} users={users} grouping={grouping} ordering={ordering} />
       ))}
     </div>
   );
